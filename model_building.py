@@ -9,6 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 df = pd.read_csv('eda_data_from_kenjee')
 
 
@@ -17,7 +18,7 @@ df.columns
 
 df_model = df[['avg_salary', 'Rating', 'Size', 'Type of ownership', 'Industry', 'Sector', 'Revenue',
              'num_comp', 'hourly', 'employer_provided', 'job_state', 'same_state', 'age', 
-             'python_yn', 'spark_yn', 'aws_yn', 'excel_yn', 'job_simp',
+             'python_yn', 'spark', 'aws', 'excel', 'job_simp',
              'seniority', 'desc_len']]                                                                                                                                                                                                                    
 
 
@@ -45,6 +46,8 @@ lm = LinearRegression()
 lm.fit(X_train, y_train)
 
 np.mean(cross_val_score(lm, X_train, y_train, scoring = 'neg_mean_absolute_error',cv=3))
+
+
 
 # lasso regression
 lm_l = Lasso()
