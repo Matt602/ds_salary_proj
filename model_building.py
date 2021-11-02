@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-df = pd.read_csv('eda_data_from_kenjee')
+df = pd.read_csv('eda_data_from_kenjee.csv')
 
 
 # choose relevant columns
@@ -50,7 +50,8 @@ np.mean(cross_val_score(lm, X_train, y_train, scoring = 'neg_mean_absolute_error
 
 
 # lasso regression
-lm_l = Lasso()
+lm_l = Lasso(alpha=.13)
+lm_l.fit(X_train, y_train)
 np.mean(cross_val_score(lm_l, X_train, y_train, scoring = 'neg_mean_absolute_error',cv=3))
 
 alpha = []
@@ -99,16 +100,4 @@ mean_absolute_error(y_test, tpred_rf)
 
 mean_absolute_error(y_test, (tpred_lm+tpred_rf)/2)
 
-import pickle
-pickl = {'model': gs.best_estimator_}
-pickle.dump( pickl, open('model_file' + ".p", "wb"))
-
-file_name = "model_file.p"
-with open(file_name, 'rb') as pickled:
-    data = pickle.load(pickled)
-    model = data['model']
-    
-model.predict(np.array(list(X_test.iloc[1,:])).reshape(1,-1))[0]
-
-list(X_test.iloc[1,:])
 
